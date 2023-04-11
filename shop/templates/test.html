@@ -1,0 +1,33 @@
+ <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+  
+   {% load static %}
+   <script type="text/javascript" src="{% static 'Chart.min.js' %}"></script>
+  <script src="{% static 'chart_plugin.js' %}"></script>   
+  <script type="text/javascript">
+  
+   
+   drawLineGraph({{result|safe}});
+
+</script>
+
+
+
+
+
+{% block body %}
+
+ <canvas id="myChartline"  width="400" height="150"></canvas>
+<!-- 
+<p class="bg-info pl-2">
+  {{ product.name }}
+</p>
+
+<div>
+  {{ product.price }}
+</div> -->
+
+
+{% endblock %}
+

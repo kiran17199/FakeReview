@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Preferences {% endblock %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+<form class="container mt-4" method="POST">
+    {% csrf_token %}
+    <div class="container mt-5">
+         <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="px-5 py-5" style="background-color:white;border-radius: 1%; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+
+   
+    <center><h3>Select your interests from below and we will customize your cart</h3></center>
+    <hr>
+   <br>
+   <br>
+    {% for category in categoryList %}
+    <input type="checkbox" class="btn-check" name="category" id="{{category}}" value="{{category}}" autocomplete="off">
+    <label class="btn btn-outline-primary" for="{{category}}">{{category}}</label>
+    {% endfor %}
+
+    <br>
+    <br><br>
+    <hr>
+    <br>
+   <div class="mb-3"> <button class="btn btn-primary w-100">Submit</button> </div>
+
+    
+
+    </div></div></div></div>
+</form>
+{% endblock %}
+{% block js %}
+<script>
+//{% if categoryList %}
+//alert("Preferences Added {{categoryList}}");
+//document.location = "/preferences"
+//{% endif %}
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Shopping Cart {% endblock %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="container-fluid row justify-content-center">
+    <div class="col-lg-10">
+        <br>
+        <div class="box-element" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <a href="/" class="btn btn-outline-dark">&#x2190 Continue Shopping</a>
+            <br><br>
+            <table class="table">
+                <tr>
+                    <th>
+                        <h5>Items: <strong>{{order.get_cart_items}}</strong></h5>
+                    </th>
+                    <th>
+                        <h5>Total: <strong>₹{{order.get_cart_total}}</strong></h5>
+                    </th>
+                    <th><a href="/checkout/" class="btn btn-success" style="float: right; margin: 5px;">Checkout</a>
+                    </th>
+                </tr>
+            </table>
+        </div>
+<br>
+        <div class="box-element" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <div class="cart-row">
+                <div style="flex: 2;text-align:center;"><strong>Image</strong></div>
+                <div style="flex: 2;text-align:center;"><strong>Item</strong></div>
+                <div style="flex: 1;text-align:center;"><strong>Price</strong></div>
+                <div style="flex: 1;text-align:center;"><strong>View Price Trend</strong></div>
+                <div style="flex: 1;text-align:center;"><strong>Quantity</strong></div>
+                <div style="flex: 1;text-align:center;"><strong>Total</strong></div>
+                <div style="flex: 1;text-align:center;"><strong>Remove</strong></div>
+            </div>
+        {% for item in items %}
+            <div class="cart-row">
+                <div style="flex: 2"><img class="row-image" style=" margin-left: auto;margin-right: auto;display: table;" src="{{item.product.image.url}}" alt=""></div>
+                <div style="flex: 2;text-align: center;">{{item.product.name}}</div>
+                <div style="flex: 1;text-align: center;">₹{{item.product.price}}</div>
+                <div style="flex: 1;text-align: center;"><a class="open-product" href="javascript:void(0);" data-popup-url="{% url 'product_price' prod_id=item.product.id %}"><i class="fa fa-line-chart" style="color:blue ;"></i></a>
+                </div>
+                <div style="flex: 1;text-align: center;"><p class="quantity">{{item.quantity}}</p>
+                <div class="quantity">
+                    <img data-product="{{item.product.id}}" data-action="add" src="{% static 'increase.png' %}" class="chg-quantity update-cart" alt="">
+                    <img data-product="{{item.product.id}}" data-action="remove" src="{% static 'decrease.png' %}" class="chg-quantity update-cart" alt="">
+                </div>
+                </div>
+                <div style="flex: 1;text-align: center;">₹{{item.get_total}}</div>
+                <div style="flex: 1;text-align: center;"><a style="margin-left: 5em;" data-product="{{item.product.id}}" data-action="delete" class="chg-quantity update-cart"><i class="fa fa-trash" style="color:red ;"></i></a></div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+</div>
+
+
+{% include "product_modal.html" %}
+{% endblock %}
+
+

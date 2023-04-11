@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Login {% endblock %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+<form method="POST"> 
+    {% csrf_token %}
+
+    <div class="container mt-5">
+         <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                <div class="card px-5 py-5">
+
+                     <div class="form-data">
+                    <div class=" forms-inputs mb-3"><span>Username</span> 
+            <!-- <label for="username" class="form-label"><i style="font-weight: bold;">Username</i></label> -->
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
+        </div>
+        <br>
+        <div class="forms-inputs mb-3">
+            <span>Password</span> 
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+        </div>
+        <br>
+        <div class="mb-3"> <button class="btn btn-primary w-100">Login</button> </div>
+
+    </div>
+
+    </div></div>
+</div>
+</div>
+
+
+</form>
+{% endblock %}
+{% block js %}
+<script>
+{% if alert %}
+alert("Username or Password is incorrect.");
+document.location = "/login"
+{% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Payment {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+</script>
+
+<br>
+<br>
+<br>
+ <div class="padding">
+        <div class="row">
+            <div class="container-fluid d-flex justify-content-center">
+                <div class="col-sm-8 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span>CREDIT/DEBIT CARD PAYMENT</span>
+                                
+                            </div>
+
+                            <div class="col-md-6 text-right" style="margin-top: -5px;">
+
+                                  <img src="https://img.icons8.com/color/36/000000/visa.png">
+                                  <img src="https://img.icons8.com/color/36/000000/mastercard.png">
+                                  <img src="https://img.icons8.com/color/36/000000/amex.png">
+                                           
+                            </div>      
+
+                        </div>    
+  
+                        </div>
+                         <form method="POST" name="form1" id="form1"> {% csrf_token %}
+                        <div class="card-body" style="height: 350px">
+                            <div class="form-group">
+                            <label for="cardNumber" class="control-label">CARD NUMBER</label>
+                            <input id="cardNumber" name="cardNumber" type="number" class="input-lg form-control cc-number" autocomplete="cardNumber" placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;" required>
+                          </div>
+
+                          <div class="row">
+
+                            <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label for="cc-exp" class="control-label">CARD EXPIRY</label>
+                                    <input name="cardExp" id="cardExp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="mm/yy" required>
+                                  </div>
+
+                                
+                            </div>
+
+                             <div class="col-md-6">
+                               <div class="form-group">
+                                <label for="cc-cvc" class="control-label">CARD CVC</label>
+                                <input id="cc-cvc" type="number" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="&bull;&bull;&bull;&bull;" required>
+                              </div>
+                            </div>
+                              
+                          </div>
+
+      
+                          <div class="form-group">
+                            <label for="numeric" class="control-label">CARD HOLDER NAME</label>
+                            <input  type="text" class="input-lg form-control" required>
+                          </div>
+                          <br>
+
+                           <div class="form-group">
+                            
+                            <input  value="MAKE PAYMENT" type="submit" class="btn btn-success btn-lg form-control" style="font-size: .8rem;" onclick="creditCardValidation(document.form1.cardNumber);ff_date_test_validation(document.form1.cardExp,'Invalid');">
+                          </div>
+                        </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+function ff_date_test_validation(element, message)
+{var expire = document.getElementById("cardExp").value;
+if(!expire.match(/(0[1-9]|1[0-2])[/][0-9]{2}/)){
+  alert("The card expiry date format is not correct!");
+   event.preventDefault();
+  result = false;
+} else {
+  // get current year and month
+  var d = new Date();
+  var currentYear = d.getFullYear();
+  var currentMonth = d.getMonth() + 1;
+  // get parts of the expiration date
+  var parts = expire.split('/');
+  var year = parseInt(parts[1], 10) + 2000;
+  var month = parseInt(parts[0], 10);
+  // compare the dates
+  if (year < currentYear || (year == currentYear && month < currentMonth)) {
+    alert("The card expiry date has passed");
+    event.preventDefault();
+    result = false;
+  }
+}
+}
+
+
+    function creditCardValidation(creditCradNum)
+{
+var regEx = /^5[1-5][0-9]{14}$|^2(?:2(?:2[1-9]|[3-9][0-9])|[3-6][0-9][0-9]|7(?:[01][0-9]|20))[0-9]{12}$/;
+   if(creditCradNum.value.match(regEx))
+     {
+        
+      return true;
+
+     }
+   else
+     {
+     alert("Please enter a valid debit card number.");
+   
+     return false;
+     }
+}    
+
+
+    {% if alert %}
+    alert("Thankyou for placing an order. Your Order ID is {{id}}. You can use it to track your order.")
+    cart = {}
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    window.location.href = '/'
+    {% endif %}
+</script>
+{% endblock %}

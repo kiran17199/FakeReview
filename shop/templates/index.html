@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Shopping {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+
+
+<div class="container mt-2 mb-3">
+
+  <div class="row">
+    {% for product in products %}
+    <div class="col-lg-4 my-4">
+      <div class="card align-items-center" style="width: 20rem; height: 25rem;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <img src="{{product.image}}" style="border-radius: 1%;width: 240px; height: 240px; margin-top: 20px;box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;">
+        <div class="card-body">
+          <div class="row mt-1">
+          <div class="col-md-9"><h5 class="card-title">{{product.name}}</h5></div>
+          <div class="col-md-3"> <h5 style="display: inline-block; float: right;">&nbsp;₹{{product.price}}</h5> </div>
+          </div>
+          <hr>
+          <div class="row">
+          {% if request.user.is_authenticated %}
+          <div class="col-md-8 nopadding"><button data-product="{{product.id}}" data-action="add" class="btn add-btn update-cart"
+            style="background-color: #D16BA5; color: white;">Add To Cart</button></div>
+          <div class="col-md-4 nopadding"><a href="/product_view/{{product.id}}/"  class="btn btn-outline-secondary">View</a></div>
+          {% else %}
+          <div class="col-md-12 nopadding"><a href="/login"  class="btn btn-outline-secondary">Login to add the item</a></div>
+          {% endif %}
+        </div>
+          
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+{% if alert %}
+  alert("Logout Sucessfull")
+  window.location.href = '/'
+{% endif %}
+</script>
+{% endblock %}
